@@ -1,5 +1,0 @@
-et.rpc.port: 6210
-et.rpc.registry: localhost:2181
-logging:
-  level: debug
-debug: false
