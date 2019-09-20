@@ -3,17 +3,17 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>rpc-hello-demo</artifactId>
+        <artifactId>et-rpc</artifactId>
         <groupId>et.rpc</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>rpc-hello-client</artifactId>
+    <artifactId>et-spring</artifactId>
     <dependencies>
         <dependency>
             <groupId>et.rpc</groupId>
-            <artifactId>rpc-hello-api</artifactId>
+            <artifactId>rpc-registry</artifactId>
         </dependency>
         <dependency>
             <groupId>et.rpc</groupId>
@@ -21,11 +21,11 @@
         </dependency>
         <dependency>
             <groupId>et.rpc</groupId>
-            <artifactId>et-spring</artifactId>
+            <artifactId>rpc-server</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
+            <groupId>et.rpc</groupId>
+            <artifactId>rpc-server</artifactId>
         </dependency>
     </dependencies>
 

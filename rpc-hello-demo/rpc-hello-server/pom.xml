@@ -23,6 +23,10 @@
             <groupId>et.rpc</groupId>
             <artifactId>rpc-server</artifactId>
         </dependency>
+        <dependency>
+            <groupId>et.rpc</groupId>
+            <artifactId>et-spring</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

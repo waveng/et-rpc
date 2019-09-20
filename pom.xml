@@ -13,6 +13,7 @@
         <module>rpc-client</module>
         <module>rpc-registry</module>
         <module>rpc-hello-demo</module>
+        <module>et-spring</module>
     </modules>
     <packaging>pom</packaging>
     <properties>
@@ -98,6 +99,11 @@
             <dependency>
                 <groupId>et.rpc</groupId>
                 <artifactId>rpc-client</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>et.rpc</groupId>
+                <artifactId>et-spring</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

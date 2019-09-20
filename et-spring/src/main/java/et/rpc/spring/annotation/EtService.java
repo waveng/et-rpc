@@ -1,4 +1,4 @@
-package et.rpc.server.spring;
+package et.rpc.spring.annotation;
 
 import org.springframework.stereotype.Service;
 

@@ -55,7 +55,7 @@ public class EtRpcServer {
     private ChannelFuture bind(ServerBootstrap bootstrap) throws InterruptedException {
 
         ChannelFuture future = bootstrap.bind(port).sync();
-        log.debug("server started, listening on:{}", port);
+        log.info("server started, listening on:{}", port);
         return future;
     }
 

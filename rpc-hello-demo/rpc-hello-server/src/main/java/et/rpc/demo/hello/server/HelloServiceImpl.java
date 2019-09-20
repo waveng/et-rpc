@@ -1,7 +1,7 @@
 package et.rpc.demo.hello.server;
 
 import et.rpc.demo.hello.api.HelloService;
-import et.rpc.server.spring.EtService;
+import et.rpc.spring.annotation.EtService;
 
 import java.util.Date;
 
