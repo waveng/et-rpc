@@ -11,6 +11,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.core.Ordered;
+import org.springframework.core.PriorityOrdered;
 import org.springframework.core.env.Environment;
 
 import java.util.HashMap;
@@ -22,7 +23,7 @@ import static org.apache.commons.collections4.MapUtils.isNotEmpty;
  * @author wangl
  */
 @Slf4j
-public class SpringEtRpcServer implements ApplicationContextAware, EnvironmentAware, InitializingBean, Ordered {
+public class SpringEtRpcServer implements ApplicationContextAware, EnvironmentAware, InitializingBean, PriorityOrdered {
 
     /**
      * 服务端口
@@ -53,7 +54,7 @@ public class SpringEtRpcServer implements ApplicationContextAware, EnvironmentAw
 
     @Override
     public int getOrder() {
-        return Ordered.LOWEST_PRECEDENCE;
+        return -1;
     }
 
     @Override

@@ -10,10 +10,11 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.core.Ordered;
+import org.springframework.core.PriorityOrdered;
 import org.springframework.core.env.Environment;
 import org.springframework.util.ReflectionUtils;
 
-public class ZkClientFactoryRegistrar implements BeanFactoryPostProcessor, EnvironmentAware, Ordered {
+public class ZkClientFactoryRegistrar implements BeanFactoryPostProcessor, EnvironmentAware, PriorityOrdered {
 
     private ConfigurableListableBeanFactory beanFactory;
     private Environment environment;
@@ -36,6 +37,6 @@ public class ZkClientFactoryRegistrar implements BeanFactoryPostProcessor, Envir
 
     @Override
     public int getOrder() {
-        return -1;
+        return -10;
     }
 }
