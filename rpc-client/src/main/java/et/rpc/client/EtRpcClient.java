@@ -26,7 +26,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class EtRpcClient {
     @NonNull
     private ServiceDiscovery serviceDiscovery;
-    private Map<String, EtRpcResponse> responseMap = new ConcurrentHashMap<>();
+    private Map<NettyClient.NettyClientKey, NettyClient> nettyClientMap = new ConcurrentHashMap<>();
 
     private Map<Class<?>, Object> proxyCache = new HashMap<>();
 
@@ -73,35 +73,23 @@ public class EtRpcClient {
         return  (T) proxyInstance;
     }
 
-
-    private EtRpcResponse send(EtRpcRequest request, String host, int port) {
-        EventLoopGroup group = new NioEventLoopGroup(1);
-        Bootstrap bootstrap = new Bootstrap();
-        bootstrap.group(group);
-        bootstrap.channel(NioSocketChannel.class);
-        bootstrap.handler(new ChannelInitializer<SocketChannel>() {
-            @Override
-            protected void initChannel(SocketChannel ch) throws Exception {
-                ChannelPipeline pipeline = ch.pipeline();
-                pipeline.addLast(new EtRpcEncoder(EtRpcRequest.class));
-                pipeline.addLast(new EtRpcDecoder(EtRpcResponse.class));
-                pipeline.addLast(new EtRpcClientHandler(responseMap));
+    private EtRpcResponse send(EtRpcRequest request, String host, int port) throws InterruptedException {
+        NettyClient.NettyClientKey nettyClientKey = new NettyClient.NettyClientKey(host, port);
+        NettyClient nettyClient = nettyClientMap.get(nettyClientKey);
+        if(nettyClient == null){
+            synchronized (nettyClientMap) {
+                nettyClient = nettyClientMap.get(nettyClientKey);
+                if(nettyClient == null) {
+                    nettyClient = new NettyClient(host, port);
+                    nettyClient.doOpen();
+                    nettyClientMap.put(nettyClientKey, nettyClient);
+                }
             }
-        });
-
-        try {
-            ChannelFuture future = bootstrap.connect(host, port).sync();
-            Channel channel = future.channel();
-            channel.writeAndFlush(request).sync();
-            channel.closeFuture().sync();
-
-            return responseMap.get(request.getRequestId());
-        } catch (InterruptedException e) {
-            log.error("client exception ", e);
-        }finally {
-            group.shutdownGracefully();
-            responseMap.remove(request.getRequestId());
         }
-        return  null;
+        return nettyClient.send(request);
+
     }
+
+
+
 }

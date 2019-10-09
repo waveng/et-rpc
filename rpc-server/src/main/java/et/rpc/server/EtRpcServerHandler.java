@@ -3,6 +3,7 @@ package et.rpc.server;
 import et.rpc.common.bean.EtRpcRequest;
 import et.rpc.common.bean.EtRpcResponse;
 import io.netty.channel.ChannelFutureListener;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +16,7 @@ import java.util.Map;
  * @author wangl
  */
 @Slf4j
+@ChannelHandler.Sharable
 public class EtRpcServerHandler extends SimpleChannelInboundHandler<EtRpcRequest> {
 
     private Map<String, Object> serviceMap;

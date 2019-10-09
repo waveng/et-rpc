@@ -13,13 +13,14 @@ import java.util.Map;
 
 @Slf4j
 @RequiredArgsConstructor
-public class EtRpcClientHandler extends SimpleChannelInboundHandler<EtRpcResponse> {
+@ChannelHandler.Sharable
+class EtRpcClientHandler extends SimpleChannelInboundHandler<EtRpcResponse> {
     @NonNull
-    private Map<String, EtRpcResponse> responseMap;
+    private Map<String, Response> responseMap;
 
     @Override
     public void channelRead0(ChannelHandlerContext ctx, EtRpcResponse response) throws Exception {
-        responseMap.put(response.getRequestId(), response);
+        responseMap.get(response.getRequestId()).set(response);
     }
 
     @Override
